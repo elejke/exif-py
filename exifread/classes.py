@@ -508,17 +508,26 @@ class ExifHeader:
 
         See http://www.burren.cx/david/canon.html by David Burren
         """
-        for i in range(1, len(value)):
+        i = 1
+        addition = 0
+        while i < len(value):
             tag = mn_tags.get(i, ('Unknown', ))
             name = tag[0]
-            if len(tag) > 1:
-                val = tag[1].get(value[i], 'Unknown')
+
+            if name in ["AFAreaWidths", "AFAreaHeights", "AFAreaXPositions", "AFAreaYPositions"]:
+                val = value[i + addition: i + addition + int(self.tags["MakerNote NumAFPoints"].printable)]
+                val = list(map(lambda val_: val_ if val_ < 60000 else val_ - 2 ** 16, val))
+                addition += int(self.tags["MakerNote NumAFPoints"].printable) - 1
             else:
-                val = value[i]
-            try:
-                logger.debug(" %s %s %s", i, name, hex(value[i]))
-            except TypeError:
-                logger.debug(" %s %s %s", i, name, value[i])
+                if len(tag) > 1:
+                    val = tag[1].get(value[i], 'Unknown')
+                else:
+                    val = value[i]
+                try:
+                    logger.debug(" %s %s %s", i, name, hex(value[i]))
+                except TypeError:
+                    logger.debug(" %s %s %s", i, name, value[i])
+            i += 1
 
             # it's not a real IFD Tag but we fake one to make everybody
             # happy. this will have a "proprietary" type

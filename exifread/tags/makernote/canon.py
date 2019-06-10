@@ -473,7 +473,7 @@ CAMERA_SETTINGS = {
         13: 'Internal Flash',
         14: 'External E-TTL'
     }),
-    32: ('FocusMode', {
+    32: ('FocusContinuous', {
         0: 'Single',
         1: 'Continuous',
         8: 'Manual'
@@ -563,7 +563,7 @@ SHOT_INFO = {
 
 # 0x0026
 AF_INFO_2 = {
-    2: ('AFAreaMode', {
+    1: ('AFAreaMode', {
         0: 'Off (Manual Focus)',
         2: 'Single-point AF',
         4: 'Multi-point AF or AI AF',
@@ -575,8 +575,25 @@ AF_INFO_2 = {
         11: 'Flexizone Multi',
         13: 'Flexizone Single',
     }),
-    3: ('NumAFPoints', ),
-    4: ('ValidAFPoints', ),
+    2: ('NumAFPoints', ),
+    3: ('ValidAFPoints', ),
+    4: ('CanonImageWidth', ),
+    5: ('CanonImageHeight', ),
+    6: ('AFImageWidth', ),
+    7: ('AFImageHeight', ),
+    8: ('AFAreaWidths', ),
+    9: ('AFAreaHeights', ),
+    10: ('AFAreaXPositions', ),
+    11: ('AFAreaYPositions', ),
+    12: ('AFPointsInFocus', ),
+    13: ('AFPointsSelected', ),
+}
+
+# 0x0012
+
+CANON_AF_INFO_TAGS = {
+    1: ('NumAFPoints', ),
+    2: ('ValidAFPoints', ),
     5: ('CanonImageWidth', ),
 }
 
